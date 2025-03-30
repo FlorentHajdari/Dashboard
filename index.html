@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Datum och klocka block -->
+    <div id="fixed-date-time-box">
+      <span id="fixed-date-time"></span>
+    </div>
+
+    <!-- Rubrik standard -->
+    <h1 id="title" contenteditable="true">John Doe Dashboard</h1>
+
+    <!-- Dashboard med sektioner -->
+    <div id="dashboard">
+      <!-- Snabblänkar -->
+      <div id="links-box">
+        <h2>Snabblänkar</h2>
+        <div class="inner-box">
+          <!-- Lista med länkar -->
+          <ul id="link-list"></ul>
+          <!-- Knapp för att lägga till länk -->
+          <button id="add-link-btn">Lägg till länk</button>
+        </div>
+      </div>
+
+      <!-- Väder -->
+      <div id="weather-box">
+        <h2>Kommande väder</h2>
+        <div class="inner-box">
+          <ul id="weather-list"></ul>
+          <p id="weather-error" style="color: red"></p>
+          <!-- Felmeddelande om data ej hämtas in -->
+        </div>
+      </div>
+
+      <!-- Aktiekurser -->
+      <div id="stocks-box">
+        <h2>Aktiekurser</h2>
+        <div class="inner-box">
+          <ul id="stocks-list"></ul>
+          <p id="stocks-error" style="color: red"></p>
+          <!-- Felmeddelande vid icke hämtning -->
+        </div>
+      </div>
+
+      <!-- Anteckningar -->
+      <div id="notes-box">
+        <h2>Anteckningar</h2>
+        <div class="inner-box">
+          <textarea
+            id="notes-area"
+            placeholder="Skriv dina anteckningar här..."
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal för addering av länkar -->
+    <div id="add-link-modal" class="modal">
+      <div class="modal-content">
+        <h3>Lägg till ny länk</h3>
+        <form id="modal-link-form">
+          <input
+            type="text"
+            id="modal-link-title"
+            placeholder="Länktitel"
+            required
+          />
+          <input
+            type="url"
+            id="modal-link-url"
+            placeholder="Länk (URL)"
+            required
+          />
+          <button type="submit">Lägg till</button>
+        </form>
+        <button id="close-modal-btn">Stäng</button>
+      </div>
+    </div>
+
+    <!-- Slumpa bakgrund knapp -->
+    <button id="background-btn">Slumpa ny bakgrund</button>
+
+    <script src="script.js"></script>
+  </body>
+</html>
