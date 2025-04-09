@@ -107,24 +107,24 @@ if (savedBackgroundImage) {
     document.body.style.backgroundPosition = 'center';
 }
 
-const API_KEY = "bd5e378503939ddaee76f12ad7a97608"; 
+const API_KEY = "e60f8ce9f6a99cef8c3e45d7e0051f5e";
 const BASE_URL = "https://api.openweathermap.org/data/2.5/forecast";
 const weatherList = document.getElementById('weather-list');
 const weatherError = document.getElementById('weather-error');
 
 // Funktion för att hämta väderdata
-function fetchWeather(city) {
-    const url = `${BASE_URL}?q=${city}&units=metric&appid=${API_KEY}`;
+function fetchWeather(latitude, longitude) {
+    const url = `${BASE_URL}?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`;
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
             // Rensa gammal väderdata
             weatherList.innerHTML = '';
-            weatherError.textContent = ''; // Rensa felmeddelande
+            weatherError.textContent = ''; 
 
             // Visa väder för tre dagar
-            const intervals = [0, 8, 16]; // Idag imorgon övermorgon
+            const intervals = [0, 8, 16]; // idag imorgon övermorgon
             intervals.forEach(index => {
                 const weather = data.list[index];
                 const date = new Date(weather.dt * 1000);
@@ -142,13 +142,20 @@ function fetchWeather(city) {
             });
         })
         .catch(error => {
-            weatherError.textContent = 'Kunde inte hämta väderdata. Kontrollera stadens namn.';
+            weatherError.textContent = 'Kunde inte hämta väderdata. Försök igen senare.';
             console.error('Väder API fel:', error);
         });
 }
 
-// Anropa funktionen med stad
-fetchWeather("Stockholm"); 
+// hämtar användarens position
+navigator.geolocation.getCurrentPosition((position) => {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    fetchWeather(latitude, longitude);
+}, (error) => {
+    console.error('Geolocation error:', error);
+    weatherError.textContent = 'Kunde inte hämta din plats.';
+});
 
 // Hantera sparning och laddning av anteckningar
 const notesArea = document.getElementById('notes-area');
